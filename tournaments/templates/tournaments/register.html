@@ -1,12 +1,12 @@
 {% extends "tournaments/layout.html" %}
 
-{% block title %}Register - ChessManager{% endblock %}
+{% block title %}Cadastro - ChessManager{% endblock %}
 
 {% block body %}
     <div class="form-wrapper">
         <div class="chess-card form-card">
-            <h2 class="form-title">Create Account</h2>
-            <p class="form-subtitle">Register as an organizer to host and score chess tournaments.</p>
+            <h2 class="form-title">Criar Conta</h2>
+            <p class="form-subtitle">Cadastre-se como organizador para criar e gerenciar torneios de xadrez.</p>
 
             {% if message %}
                 <div class="alert-error">{{ message }}</div>
@@ -15,26 +15,26 @@
             <form action="{% url 'register' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label class="form-label">Username</label>
-                    <input class="form-control" autofocus type="text" name="username" placeholder="Choose a username" required>
+                    <label class="form-label">Nome de usuário</label>
+                    <input class="form-control" autofocus type="text" name="username" placeholder="Escolha um nome de usuário" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Email Address</label>
-                    <input class="form-control" type="email" name="email" placeholder="name@example.com" required>
+                    <label class="form-label">Endereço de E-mail</label>
+                    <input class="form-control" type="email" name="email" placeholder="nome@exemplo.com" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <input class="form-control" type="password" name="password" placeholder="Create a password" required>
+                    <label class="form-label">Senha</label>
+                    <input class="form-control" type="password" name="password" placeholder="Crie uma senha" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Confirm Password</label>
-                    <input class="form-control" type="password" name="confirmation" placeholder="Repeat your password" required>
+                    <label class="form-label">Confirmar Senha</label>
+                    <input class="form-control" type="password" name="confirmation" placeholder="Repita sua senha" required>
                 </div>
-                <input class="btn-chess btn-full" type="submit" value="Register">
+                <input class="btn-chess btn-full" type="submit" value="Cadastrar">
             </form>
 
             <div class="auth-footer">
-                Already have an account? <a class="auth-link" href="{% url 'login' %}">Log In here</a>.
+                Já tem uma conta? <a class="auth-link" href="{% url 'login' %}">Entre aqui</a>.
             </div>
         </div>
     </div>

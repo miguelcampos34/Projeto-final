@@ -303,3 +303,71 @@ body {
     width: 45%;
     min-width: 320px;
 }
+
+.card-feature-img {
+    height: 160px;
+    object-fit: cover;
+}
+
+:root {
+    --bg-body: #f8f9fa;
+    --bg-surface: #ffffff;
+    --text-main: #212529;
+    --text-muted: #6c757d;
+    --border-color: #dee2e6;
+}
+
+[data-theme="dark"] {
+    --bg-body: #121417;
+    --bg-surface: #1e2227;
+    --text-main: #f1f3f5;
+    --text-muted: #adb5bd;
+    --border-color: #343a40;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.custom-navbar,
+.custom-card,
+.site-footer {
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border-color: var(--border-color) !important;
+}
+
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand,
+.footer-link {
+    color: var(--text-main);
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .form-control {
+    background-color: #2b3036;
+    color: var(--text-main);
+    border-color: var(--border-color);
+}
+
+.carousel-img {
+    height: 360px;
+    object-fit: cover;
+}
+
+.carousel-overlay {
+    background-color: rgba(0, 0, 0, 0.65);
+}

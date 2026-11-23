@@ -9,4 +9,5 @@ urlpatterns = [
     path("create", views.create_tournament, name="create_tournament"),
     path("tournament/<int:tournament_id>", views.tournament_detail, name="tournament_detail"),
     path("tournament/<int:tournament_id>/add_player", views.add_player, name="add_player"),
+    path("contact/", views.contact, name="contact"),    
 ]

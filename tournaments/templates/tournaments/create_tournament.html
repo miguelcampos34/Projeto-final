@@ -1,24 +1,24 @@
 {% extends "tournaments/layout.html" %}
 
-{% block title %}Create Tournament - ChessManager{% endblock %}
+{% block title %}Criar Torneio - ChessManager{% endblock %}
 
 {% block body %}
     <div class="form-wrapper">
         <div class="chess-card form-card">
-            <h3 class="form-title">New Tournament</h3>
-            <p class="form-subtitle">Configure the details for your upcoming chess event.</p>
+            <h3 class="form-title">Novo Torneio</h3>
+            <p class="form-subtitle">Configure os detalhes do seu próximo evento de xadrez.</p>
 
             <form action="{% url 'create_tournament' %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label class="form-label">Tournament Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="Tournament name" required>
+                    <label class="form-label">Nome do Torneio</label>
+                    <input type="text" name="name" class="form-control" placeholder="Nome do torneio" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Number of Rounds</label>
+                    <label class="form-label">Número de Rodadas</label>
                     <input type="number" name="rounds" class="form-control" min="1" max="15" placeholder="5">
                 </div>
-                <button type="submit" class="btn-chess btn-full">New Tournament</button>
+                <button type="submit" class="btn-chess btn-full">Criar Torneio</button>
             </form>
         </div>
     </div>
