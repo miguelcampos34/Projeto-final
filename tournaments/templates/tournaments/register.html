@@ -1,0 +1,41 @@
+{% extends "tournaments/layout.html" %}
+
+{% block title %}Register - ChessManager{% endblock %}
+
+{% block body %}
+    <div class="form-wrapper">
+        <div class="chess-card form-card">
+            <h2 class="form-title">Create Account</h2>
+            <p class="form-subtitle">Register as an organizer to host and score chess tournaments.</p>
+
+            {% if message %}
+                <div class="alert-error">{{ message }}</div>
+            {% endif %}
+
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input class="form-control" autofocus type="text" name="username" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input class="form-control" type="email" name="email" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input class="form-control" type="password" name="password" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <input class="form-control" type="password" name="confirmation" placeholder="Repeat your password" required>
+                </div>
+                <input class="btn-chess btn-full" type="submit" value="Register">
+            </form>
+
+            <div class="auth-footer">
+                Already have an account? <a class="auth-link" href="{% url 'login' %}">Log In here</a>.
+            </div>
+        </div>
+    </div>
+{% endblock %}

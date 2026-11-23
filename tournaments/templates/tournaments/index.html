@@ -1,0 +1,40 @@
+{% extends "tournaments/layout.html" %}
+
+{% block title %}My Tournaments - ChessManager{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h2 class="page-title">Active Tournaments</h2>
+        {% if user.is_authenticated %}
+            <a href="{% url 'create_tournament' %}" class="btn-chess">New Tournament</a>
+        {% endif %}
+    </div>
+
+    {% if tournaments %}
+        <div class="tournament-grid">
+            {% for tournament in tournaments %}
+                <div class="chess-card tournament-card">
+                    <div>
+                        <div class="card-header-row">
+                            <h5 class="page-title">{{ tournament.name }}</h5>
+                            <span class="status-badge">{{ tournament.status }}</span>
+                        </div>
+                        <p class="muted-text">Date: {{ tournament.date }} • {{ tournament.rounds }} Rounds</p>
+                        <p>Organizer: {{ tournament.organizer.username }}</p>
+                    </div>
+                    <a href="{% url 'tournament_detail' tournament.id %}" class="btn-chess-outline">
+                        Manage Tournament
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-box">
+            {% if user.is_authenticated %}
+                No tournaments registered yet. Click <strong>+ New Tournament</strong> to get started!
+            {% else %}
+                No tournaments registered yet. Log in to create new tournaments!
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

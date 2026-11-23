@@ -1,0 +1,107 @@
+{% extends "tournaments/layout.html" %}
+
+{% block title %}{{ tournament.name }} - ChessManager{% endblock %}
+
+{% block body %}
+    <div>
+        <h2 class="page-title">{{ tournament.name }}</h2>
+        <p class="muted-text">Current Round: <strong>{{ tournament.current_round }} of {{ tournament.rounds }}</strong></p>
+    </div>
+
+    <ul class="nav nav-tabs tournament-tabs" id="tournamentTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pairings-tab" data-bs-toggle="tab" data-bs-target="#pairings" type="button">
+                Pairings (Boards)
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="standings-tab" data-bs-toggle="tab" data-bs-target="#standings" type="button">
+                Standings
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="players-tab" data-bs-toggle="tab" data-bs-target="#players" type="button">
+                Players ({{ players.count }})
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="tournamentTabsContent">
+
+        <div class="tab-pane fade show active" id="pairings" role="tabpanel">
+            {% for match in matches %}
+                <div class="chess-card match-card">
+                    <div class="match-header">
+                        <span class="board-badge">Board {{ forloop.counter }}</span>
+                        <span class="muted-text">Round {{ match.round_number }}</span>
+                    </div>
+                    
+                    <div class="players-matchup">
+                        <div>⚪ {{ match.white_player.name }} <span class="muted-text">({{ match.white_player.rating }})</span></div>
+                        <div class="muted-text">vs</div>
+                        <div>⚫ {{ match.black_player.name }} <span class="muted-text">({{ match.black_player.rating }})</span></div>
+                    </div>
+
+                    <div class="result-actions" id="match-action-{{ match.id }}">
+                        {% if match.result == "PENDING" %}
+                            <div class="result-btn-group">
+                                <button class="result-btn" data-match="{{ match.id }}" data-result="1-0">1 - 0</button>
+                                <button class="result-btn" data-match="{{ match.id }}" data-result="0.5-0.5">½ - ½</button>
+                                <button class="result-btn" data-match="{{ match.id }}" data-result="0-1">0 - 1</button>
+                            </div>
+                        {% else %}
+                            <span class="result-confirmed">✔ Result: {{ match.result }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty-box">No pairings generated for this round yet.</div>
+            {% endfor %}
+        </div>
+
+        <div class="tab-pane fade" id="standings" role="tabpanel">
+            <table class="standings-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th class="col-rating">Rating</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody id="standings-body">
+                    {% for player in standings %}
+                        <tr>
+                            <td><strong>{{ forloop.counter }}</strong></td>
+                            <td>{{ player.name }}</td>
+                            <td class="muted-text col-rating">{{ player.rating }}</td>
+                            <td><strong>{{ player.points }}</strong></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="addPlayerDrawer">
+            <div class="offcanvas-header">
+                <h5 class="page-title">Add Player</h5>
+                <form action="{% url 'add_player' tournament.id %}" method="post" class="player-form-row">
+                    {% csrf_token %}
+                    <input type="text" name="name" class="form-control player-name-input" placeholder="Player name" required>
+                    <input type="number" name="rating" class="form-control player-rating-input" placeholder="1200">
+                    <button type="submit" class="btn-chess">Add</button>
+                </form>
+            </div>
+
+            <ul class="player-list">
+                {% for player in players %}
+                    <li class="player-list-item">
+                        <span>{{ player.name }}</span>
+                        <span class="muted-text">Rating: {{ player.rating }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+{% endblock %}

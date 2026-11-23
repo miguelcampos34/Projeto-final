@@ -1,0 +1,33 @@
+{% extends "tournaments/layout.html" %}
+
+{% block title %}Log In - ChessManager{% endblock %}
+
+{% block body %}
+    <div class="form-wrapper">
+        <div class="chess-card form-card">
+            <h2 class="form-title">Arbiter Log In</h2>
+            <p class="form-subtitle">Access your dashboard to manage tournaments and pairings.</p>
+
+            {% if message %}
+                <div class="alert-error">{{ message }}</div>
+            {% endif %}
+
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input autofocus class="form-control" type="text" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input class="form-control" type="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <input class="btn-chess btn-full" type="submit" value="Log In">
+            </form>
+
+            <div class="auth-footer">
+                Don't have an account? <a class="auth-link" href="{% url 'register' %}">Register here</a>.
+            </div>
+        </div>
+    </div>
+{% endblock %}
